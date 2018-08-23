@@ -10,14 +10,14 @@ module.exports = function(app, db) {
 
     console.log('​module.exports -> details', details);
     console.log('​module.exports -> queryString', queryString);
-    let currCity = "";
+    let possibleCities = [];
 
     cityData.forEach(function(city) {
-      if (city.name == details.query) {
-        currCity = city;
+      if (city.name.toUpperCase() == details.query.toUpperCase()) {
+        possibleCities.push(city);
       }
     });
 
-    response.json(currCity);
+    response.json(possibleCities);
   });
 };
