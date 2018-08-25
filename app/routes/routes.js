@@ -11,11 +11,16 @@ module.exports = function(app, db) {
     console.log('​module.exports -> details', details);
     console.log('​module.exports -> queryString', queryString);
     let possibleCities = [];
+    let counter = 0;
+    let limit = 10;
 
     cityData.forEach(function(city) {
+      if(counter < limit){
       if (city.name.toUpperCase().includes(details.query.toUpperCase())) {
         possibleCities.push(city);
+        counter++;
       }
+    }
     });
 
     response.json(possibleCities);
