@@ -13,7 +13,7 @@ module.exports = function(app, db) {
     let possibleCities = [];
 
     cityData.forEach(function(city) {
-      if (city.name.toUpperCase() == details.query.toUpperCase()) {
+      if (city.name.toUpperCase().includes(details.query.toUpperCase())) {
         possibleCities.push(city);
       }
     });
