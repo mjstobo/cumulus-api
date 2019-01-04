@@ -10,19 +10,22 @@ module.exports = function(app, db) {
 
     console.log('​module.exports -> details', details);
     console.log('​module.exports -> queryString', queryString);
-    let possibleCities = [];
-    let counter = 0;
-    let limit = 10;
 
-    cityData.forEach(function(city) {
-      if(counter < limit){
-      if (city.name.toUpperCase().includes(details.query.toUpperCase())) {
-        possibleCities.push(city);
-        counter++;
-      }
-    }
-    });
+  const possibleCities = cityData.filter(city=> city.name.toUpperCase().startsWith(details.query.toUpperCase()));
 
-    response.json(possibleCities);
+  possibleCities.sort((a,b) => {
+    let nameA = a.name;
+    let nameB = b.name;
+
+   return(nameA < nameB ?  -1 :
+          nameA > nameB ?   1 :
+                            0
+        );
+  });
+
+    const returnedCities = possibleCities.slice(0,10);
+
+    response.json(returnedCities);
+
   });
 };
